@@ -15,4 +15,18 @@ export class EmailHelper extends Block {
   get value () {
     return this.getElement('input').value;
   }
+
+  constructor (options) {
+    super(options);
+  }
+
+  render (el) {
+    super.render(el);
+    this.el.querySelector('#exampleEmailInput').addEventListener('click', event => {
+      event.preventDefault();
+      document.querySelector('ul').style.display = 'block';
+      console.log('123');
+    })
+  }
+  
 }
