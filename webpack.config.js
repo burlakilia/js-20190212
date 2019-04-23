@@ -15,15 +15,15 @@ module.exports = {
             presets: ['babel-preset-env']
           }
         }
-      },{
+      }, {
         test: /\.pug$/,
         use: 'pug-loader'
       }, {
         test: /\.scss$/,
         use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader"
+          'style-loader',
+          'css-loader',
+          'sass-loader'
         ]
       }
     ]
