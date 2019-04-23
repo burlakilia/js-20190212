@@ -1,0 +1,12 @@
+.galarey__row#galarey__row
+  .inRow#inRow
+    .inRow__wrap#inRow__wrap
+      each image in images
+        if image.selected
+          img.galarey__image.galarey__image_selected(src=image.src alt=image.description data-theme=image.data)
+        else 
+          img.galarey__image(src=image.src alt=image.description data-theme=image.data)
+  .inRow__btn
+    if images.length > 3
+      button.btn__more#btn__more показать еще      
+      button.btn__hidden#btn__hidden скрыть

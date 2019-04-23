@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>galarey-demo</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+
+<body>
+    <h1>Выбор темы</h1>
+    <div class="js-themes"></div>
+    <script>
+        (function() {
+            'use strict';
+            
+            const themes = new Themes();
+            themes.render(document.querySelector('.js-themes'));
+        })();
+    </script>
+</body>
+
+</html>

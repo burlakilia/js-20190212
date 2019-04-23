@@ -5,8 +5,6 @@ import template from './datebox.pug';
 import _ from './datebox.scss';
 /* eslint-enable */
 
-console.log('test');
-
 let dateToday = new Date();
 
 export class Datebox extends Block {

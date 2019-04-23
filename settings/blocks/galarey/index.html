@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>galarey-demo</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+
+<body>
+    <h1>Пример простой галареи</h1>
+    <div class="js-galarey"></div>
+    <script>
+        (function() {
+            'use strict';
+            const myGalarey = new Galarey({
+                images : [{
+                    src: '../../img/black.jpg',
+                    description: 'Black Theme',
+                    selected: false,
+                    data: 'black'
+                },{
+                    src: '../../img/blue.jpg',
+                    description: 'Blue Theme',
+                    selected: true,
+                    data: 'blue'
+                },{
+                    src: '../../img/green.jpg',
+                    description: 'Green Theme',
+                    selected: false,
+                    data: 'green'
+                },{
+                    src: '../../img/red.jpg',
+                    description: 'Red Theme',
+                    selected: false,
+                    data: 'red'
+                }],
+            });
+            myGalarey.render(document.querySelector('.js-galarey'));
+            myGalarey.run();
+        })();
+    </script>
+</body>
+
+</html>

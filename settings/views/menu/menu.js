@@ -30,6 +30,10 @@ export class Menu extends View {
       href: '#security',
       text: 'Безопасность'
     });
+    this.settingsMenu.addItem({
+      href: '#theme',
+      text: 'Темы'
+    });
     this.settingsMenu.render(this.getElement('place'));
     this.settingsMenu.setActive('#persondata');
   }
