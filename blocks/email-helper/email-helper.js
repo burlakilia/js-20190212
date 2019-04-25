@@ -18,7 +18,7 @@ export class EmailHelper extends Block {
     super(options);
     this.email = new Textbox({
       name: 'email',
-      label: 'Введите email',
+      label: 'Email',
       value: '',
       required: false
     });
@@ -56,7 +56,6 @@ export class EmailHelper extends Block {
     this.email.render(this.getElement('email'));
     // document.querySelector('.email-helper__email').appendChild(this.helper);
     console.log('call render');
-    console.log(this.el);
     this.el.querySelector('input').addEventListener('click', this.showList);
   }
 }
