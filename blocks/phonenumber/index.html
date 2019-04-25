@@ -6,7 +6,7 @@
     <script src="../../dist/toolkit.js"></script>
 </head>
 <body>
-<h1>Простой вариант формы для ввода телефонного номера</h1>
+<h5>Простой вариант формы для ввода телефонного номера</h5>
 <div class="js-phonenumber"></div>
 
 <script>
@@ -14,9 +14,15 @@
     (function () {
         'use strict';
 
-        const sunnyPhone = new Phonenumber();
+        const phone = new Phonenumber({
+            name: 'phonenumber',
+            label: 'Телефонный номер',
+            placeholder: '8-999-9999999',
+            required: true
+        });
+        console.log(phone)
 
-        sunnyPhone.render(document.querySelector('.js-phonenumber'));
+        phone.render(document.querySelector('.js-phonenumber'));
     })();
 </script>
 </body>

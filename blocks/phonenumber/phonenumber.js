@@ -9,23 +9,25 @@ export class Phonenumber extends Block {
   get bemName () {
     return 'phonenumber';
   }
+
   template (data) {
     return template(data);
   }
+
   constructor (options) {
     super(options);
+    this.isError = true;
+    if (options.name === undefined) {
+      options.name = 'phonenumber'
+    }
 
-    this.phonenumber = new PhoneField({
-      name: 'phonenumber',
-      label: 'Телефонный номер',
-      placeholder: '8-999-9999999',
-      value: '',
-      required: true
-    });
+    this.phonenumber = new PhoneField(options);
   }
+
   render (el) {
     super.render(el);
     this.phonenumber.render(this.getElement('phonenumber'));
+    let self = this
 
     this.el.querySelector('form').addEventListener('submit', event => {
       event.preventDefault();
@@ -39,18 +41,30 @@ export class Phonenumber extends Block {
         return;
       }
 
-      this.el.querySelector('input').classList.add('error');
-      let spanMassage = this.el.querySelector('.pure-form-message-inline');
-      spanMassage.textContent = 'invalid phone number'
-      spanMassage.classList.add('error')
+      this.el.querySelector('input').classList.add('errorPhone');
+      let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
+      errorMessage.style.display = 'inline'
+
+      console.log(self.options);
+
+      if (self.options.required) {
+        let requiredMessage = this.el.querySelector('span.form-message-inline.required');
+        requiredMessage.style.display = 'none'
+      }
+      this.isError = true;
+
       event.preventDefault();
     })
 
     this.el.querySelector('input').addEventListener('focus', () => {
-      this.el.querySelector('input').classList.remove('error');
-      let spanMassage = this.el.querySelector('.pure-form-message-inline');
-      spanMassage.textContent = 'Обязательное поле'
-      spanMassage.classList.remove('error')
+      this.el.querySelector('input').classList.remove('errorPhone');
+      let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
+      errorMessage.style.display = 'none'
+      if (self.options.required) {
+        let requiredMessage = this.el.querySelector('span.form-message-inline.required');
+        requiredMessage.style.display = 'inline'
+      }
+      this.isError = false;
     })
 
     this.el.querySelector('input').addEventListener('keydown', event => {
@@ -58,9 +72,6 @@ export class Phonenumber extends Block {
 
       let chr = event.key;
 
-      // с null надо осторожно в неравенствах,
-      // т.к. например null >= '0' => true
-      // на всякий случай лучше вынести проверку chr == null отдельно
       if (chr == null) return;
 
       if ((chr < '0' || chr > '9') && (chr !== 'Backspace' && chr !== '+')) {
@@ -90,6 +101,7 @@ export class Phonenumber extends Block {
     this.el.querySelector('form').addEventListener('submit', event => {
       event.preventDefault();
       console.log(this.phonenumber.value);
+      console.log(this.isError)
     })
   }
 }

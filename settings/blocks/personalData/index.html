@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личные данные</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+<body>
+    <h1>Личные данные</h1>
+    <div class="personal-data"></div>
+    <script>
+        (function () {
+            'use strict';
+            const personalData = new PersonalData();
+            personalData.render(document.querySelector('.personal-data'));
+        })();
+    </script>
+</body>
+</html>

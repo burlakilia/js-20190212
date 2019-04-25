@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blocks: inputField</title>
+  <script src="../../../dist/auth.js"></script>
+  <link rel="stylesheet" href="inputFiel.css" />
+</head>
+
+<body>
+
+  <div class="js-inputField"></div>
+  <div class="js-inputField-submit"></div>
+  <div class="js-inputField-disabled"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const inputField = new InputField({
+        name: 'test',
+        type: 'password',
+        label: 'Пример активного input',
+        value: 'hello world',
+        required: true
+      });
+      const inputField2 = new InputField({
+        name: 'test2',
+        type: 'submit',
+        label: false,
+        value: 'submit',
+        required: true
+      });
+      const inputField3 = new InputField({
+        name: 'test3',
+        type: 'text',
+        label: 'Пример неактивного input',
+        value: 'hello world',
+        required: true,
+        mod: ['disabled']
+      });
+
+      inputField.render(document.querySelector('.js-inputField'));
+      inputField.render(document.querySelector('.js-inputField-submit'));
+      inputField3.render(document.querySelector('.js-inputField-disabled'));
+    })();
+  </script>
+
+</body>
+
+</html>

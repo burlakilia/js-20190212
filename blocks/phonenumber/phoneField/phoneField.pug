@@ -1,5 +1,7 @@
-div.phoneField.pure-control-group
+div.phoneField
+
     label(for=name) #{label}
     input.phoneField__input(id=name, type="text", name=name, value=value, placeholder=placeholder)
+    span.form-message-inline.errorPhone invalid phone number
     if required
-        span.pure-form-message-inline Обязательное поле
+        span.form-message-inline.required Обязательное поле

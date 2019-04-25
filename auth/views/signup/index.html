@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup: Форма регистрации</title>
+  <script src="../../../dist/auth.js"></script>
+    <link href="../../../libs/bemskel.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <div class="js-signup"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const signup = new SignupForm();
+      signup.render(document.querySelector('.js-signup'));
+    })();
+  </script>
+</body>
+
+</html>

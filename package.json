@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack-cli --watch",
+    "build:auth": "webpack-cli --watch --config ./auth/webpack.config.js",
     "build:contacts": "webpack-cli --watch --config ./contacts/webpack.config.js",
+    "build:settings": "webpack-cli --watch --config ./settings/webpack.config.js",
     "lint": "eslint ./blocks/**/*.js",
+    "lint:auth": "eslint --fix --ext .js auth/",
+    "lint:settings": "eslint ./settings/**/*.js",
+    "build:contacts": "webpack-cli --watch --config ./contacts/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,9 +29,8 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
-    "eslint": "^5.0.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-css-modules": "^2.11.0",
-    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.0",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
@@ -42,6 +46,12 @@
     "webpack-cli": "^3.3.0"
   },
   "pre-commit": [
-    "lint"
-  ]
+    "lint",
+    "lint:auth",
+    "lint:settings"  
+  ],
+  "devDependencies": {
+    "eslint-plugin-import": "^2.17.1"
+  }
+
 }

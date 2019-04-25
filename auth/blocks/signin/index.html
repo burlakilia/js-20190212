@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Signin: Форма авторизации</title>
+  <script src="../../../dist/auth.js"></script>
+</head>
+
+<body>
+  <h1>Простой вариант формы авторизации</h1>
+  <div class="js-signin"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const signin = new SigninForm();
+
+      signin.render(document.querySelector('.js-signin'));
+    })();
+  </script>
+</body>
+
+</html>

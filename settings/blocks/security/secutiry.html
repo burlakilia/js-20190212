@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение пароля</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+<body>
+    <h1>Изменение пароля</h1>
+    <div class="change-password"></div>
+    <script>
+        (function () {
+            'use strict';
+
+            const security = new Security();
+            security.render(document.querySelector('.change-password'));
+        })();
+    </script>
+</body>
+</html>

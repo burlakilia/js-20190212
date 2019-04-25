@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+<body>
+    <h1>Настройки</h1>
+    <form class="settings"></form>
+    <script>
+        (function () {
+            'use strict';
+            const options = {
+                menu : {
+                    activeItem : '#persondata'
+                },
+                FormConstructor : PersonalData
+            };
+            const settingsForm = new SettingsForm(options);
+            settingsForm.render(document.querySelector('.settings'));
+        })();
+</script>
+</body>
+</html>

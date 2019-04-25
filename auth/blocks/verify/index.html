@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verify: Форма аутентификации</title>
+  <script src="../../../dist/auth.js"></script>
+    <link href="../../../libs/bemskel.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <h1>Аутентификации пользователя</h1>
+  <div class="js-verify"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const verify = new VerifyForm();
+
+      verify.render(document.querySelector('.js-verify'));
+    })();
+  </script>
+</body>
+
+</html>

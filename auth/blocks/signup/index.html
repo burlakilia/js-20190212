@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Signup: Форма регистрации</title>
+  <script src="../../../dist/auth.js"></script>
+</head>
+
+<body>
+  <h1>Простой вариант формы регистрации</h1>
+  <div class="js-signup"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const signup = new SignupForm();
+
+      signup.render(document.querySelector('.js-signup'));
+    })();
+  </script>
+</body>
+
+</html>

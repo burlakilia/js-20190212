@@ -1,4 +1,13 @@
+# rules auth
+auth/dist/auth.js
 .idea
 node_modules
 package-lock.json
+CNAME
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
 .DS_Store

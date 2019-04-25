@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datebox</title>
+    <script src="../../../dist/toolkit_settings.js"></script>
+</head>
+<body>
+    <h1>Дата рождения</h1>
+    <div class="birthday-date"></div>
+    <script>
+        (function () {
+            'use strict';
+            const birthdayDate = new Datebox();
+            birthdayDate.render(document.querySelector('.birthday-date'));
+        }());
+    </script>
+
+
+</body>
+</html>

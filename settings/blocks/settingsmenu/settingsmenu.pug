@@ -1,0 +1,7 @@
+ul.settings-menu
+    each item in list
+        li
+            if item.active
+                a.settings-menu__item_active= item.text
+            else
+                a(href= item.href)= item.text

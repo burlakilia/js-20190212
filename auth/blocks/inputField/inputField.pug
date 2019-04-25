@@ -1,0 +1,6 @@
+div.textbox.pure-control-group
+    if label
+    label(for=name) #{label}
+    input.textbox__input(id=name, type=type, name=name, value=value, placeholder=label)
+    if required
+        span.pure-form-message-inline Обязательное поле

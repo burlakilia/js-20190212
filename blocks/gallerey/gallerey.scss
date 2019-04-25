@@ -1,0 +1,56 @@
+.inLine {
+  position: relative;
+  transition: all ease 0.5s;
+  overflow: hidden;
+    &__wrap {
+      position: relative;
+      display: flex;
+      left: 0;
+      height: auto;
+      transition: all ease 0.5s;
+    }
+}
+
+img {
+  max-width: none !important;
+}
+
+.gallerey {
+  display: flex;
+  justify-content: center;
+}
+
+.btn__ {
+  &left {
+    border: 1px solid #c5c2c2;
+    background-color: transparent;
+  }
+  &right {
+    border: 1px solid #c5c2c2;
+    background-color: transparent;
+  }
+}
+.inRow {
+  position: relative;
+  transition: all ease 0.5s;
+  overflow: hidden;
+    &__wrap {
+      transition: all ease 0.5s;
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+}
+
+.inRow__btn {
+  display: flex;
+  justify-content: center;
+  & button {
+    margin-top: 10px;
+    margin-left: 15px;
+    border: 1px solid #c5c2c2;
+    background-color: transparent;
+  }
+}

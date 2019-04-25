@@ -2,7 +2,7 @@ import { ContactCard } from './blocks/contact-card/contact-card';
 import { ContactsList } from './blocks/contacts-list/contacts-list';
 import { Pagination } from './blocks/pagination/pagination';
 
-import { Card }  from './views/card/card';
+import { Card } from './views/card/card';
 import { List } from './views/list/list';
 import { Router } from '../libs/router';
 
