@@ -26,16 +26,13 @@ export class EmailHelper extends Block {
   render (el) {
     super.render(el);
     this.email.render(this.getElement('email'));
-    // this.el.querySelector('input').addEventListener('click', event => {
-    //   let className = `${this.bemName}__list`;
-    //   this.el.querySelector(`.${className}`).classList.toggle(`${className}_active`);
-    // });
     this.el.querySelector('form').addEventListener('click', event => {
       let className = `${this.bemName}__list`;
+      let node = this.el.querySelector(`.${className}`);
       if (event.target === this.el.querySelector('input')) {
-        this.el.querySelector(`.${className}`).classList.toggle(`${className}_active`);
+        node.classList.toggle(`${className}_active`);
       } else {
-        this.el.querySelector(`.${className}`).classList.remove(`${className}_active`);
+        node.classList.remove(`${className}_active`);
       }
     });
   }
