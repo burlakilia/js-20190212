@@ -1,9 +1,8 @@
 .email-helper__list {
-    display: block;
-    position: absolute; 
-    border: 1px solid blue;   
+    display: none;
+    // position: absolute; 
+    // border: 1px solid blue;   
 }
-// .email-helper__list_active {
-//     background-color: red; 
-//     display: block;
-// }
+.email-helper__list_active {
+    display: block;
+}
