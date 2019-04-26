@@ -19,34 +19,16 @@ export class EmailHelper extends Block {
       name: 'email',
       label: 'Введите email',
       value: '',
-      placeholder: 'alexey.khabarov@mail.ru',
       required: false
     });
-
-    this.helper = document.createElement('div');
-    this.helper.style.position = 'absolute';
-    this.helper.classList.add(`${this.bemName}__list`);
-
     this.onShowList = this.onShowList.bind(this);
     this.onHideList = this.onHideList.bind(this);
   }
-
-  delegate (eventName, element, cssSelector, callback) {
-    let fn = event => {
-      if (!event.target.matches(cssSelector)) {
-        return;
-      }
-      callback(event);
-    };
-
-    element.addEventListener(eventName, fn);
-
-    return this;
-  }
-
-  onShowList (event) {
+  showList (event) {
+    this.helper = document.createElement('div');
+    this.helper.style.position = 'absolute';
+    this.helper.classList.add(`${this.bemName}__list`);
     this.list = document.createElement('ul');
-    // this.helper.innerHTML = 'Привет';
     let spanRect = event.target.getBoundingClientRect();
     let elRect = this.helper.getBoundingClientRect();
     this.helper.style.left = `${spanRect.left + 10}px`
@@ -65,11 +47,10 @@ export class EmailHelper extends Block {
     this.list.appendChild(this.email2);
     this.helper.appendChild(this.list);
   }
-  onHideList () {
+  hideList () {
     this.helper.style.display = 'none';
     console.log('call onHideList');
   }
-
   render (el) {
     super.render(el);
     this.email.render(this.getElement('email'));

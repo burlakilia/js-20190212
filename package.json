@@ -51,7 +51,7 @@
     "lint",
     "lint:messages",
     "lint:auth",
-    "lint:settings"  
+    "lint:settings"
   ],
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
