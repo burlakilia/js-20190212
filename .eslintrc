@@ -22,7 +22,10 @@
   "globals": {
     "document": false,
     "navigator": false,
-    "window": false
+    "window": false,
+    "fetch": false,
+    "Promise": false,
+    "location": false
   },
 
   "rules": {

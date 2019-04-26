@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../dist/messages.js"></script>
+    <link href="../../../libs/bemskel.min.css" rel="stylesheet"/>
+    <title>MessageInfo</title>
+</head>
+<body>
+<div class="js-letter"></div>
+<script>
+    (function () {
+        const letter = new MessageInfo({
+            title: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam, aliquid! Lorem ipsum dolor sit',
+            emailFrom: 'burlakili@bk.ru',
+            emailTo: 'burlakili@bk.ru',
+            time: '10 янв 2019'
+        });
+        letter.render(document.querySelector('.js-letter'));
+    })();
+</script>
+</body>
+</html>

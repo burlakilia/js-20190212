@@ -1,0 +1,20 @@
+article.letter
+    section.letter__main
+        .letter__header
+            h2.letter__theme #{title}
+        .letter__information
+            div.letter__addresses
+                p.letter__from
+                    span От:
+                    a(href='#') #{emailFrom}
+                p.letter__to
+                    span Кому:
+                    a(href='#') #{emailTo}
+            time #{time}
+        .letter__content
+
+        if hasAttach
+            .letter__gallery
+    .letter__buttons
+        button(class="btn btn-outline--primary") Ответить
+        a(href="#") К тексту

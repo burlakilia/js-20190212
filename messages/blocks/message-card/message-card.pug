@@ -1,0 +1,11 @@
+a.card(href="#message")
+    if url
+        .card__avatar(style='background-image:url('+url+')')
+    else
+        .card__avatar
+            span N
+    .card__content
+
+        h5.js-find-matches #{h5}
+        p
+            | #{text}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang = 'en'>
+<head>
+    <meta charset = "UTF-8">
+    <title>Blocks: Card</title>
+
+    <script src="../../../dist/messages.js"></script>
+    <link href="../../../libs/bemskel.min.css" rel="stylesheet"/>
+
+
+</head>
+
+<body>
+<div class = "js-card"></div>
+<div class = "js-card2"></div>
+<div class = "js-card3"></div>
+<script>
+  (function () {
+    'use strict';
+
+    let card = new MessageCard({
+      h5: 'Conference Team',
+      text: 'Lorem Ipsum is simply dummy text of the printing Lorem Ipsum',
+      url : 'https://js.cx/clipart/winnie-mult.jpg'
+    });
+
+    let card2 = new MessageCard({
+      h5: 'Slack',
+      text: 'Lorem Ipsum is simply dummy text of the printing Lorem Ipsum',
+      url: ''
+    });
+
+    let card3 = new MessageCard({
+      h5: 'Ivan Petrov',
+      text: 'Lorem Ipsum is simply dummy text of the printing Lorem Ipsum',
+      url: 'https://js.cx/carousel/2.png'
+    });
+
+    card.render(document.querySelector('.js-card'));
+    card2.render(document.querySelector('.js-card2'));
+    card3.render(document.querySelector('.js-card3'));
+  })();
+</script>
+</body>
+
+</html>

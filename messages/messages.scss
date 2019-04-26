@@ -1,0 +1,14 @@
+@import "../libs/bemskel.min.css";
+
+.inbox {
+  display: flex;
+  height: 100vh;
+  &__sidebar {
+    flex-basis: 32%;
+    max-width: 370px;
+    min-width: 300px;
+  }
+  &__message {
+
+  }
+}

@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack-cli --watch",
+    "build:messages": "webpack-cli --watch --config ./messages/webpack.config.js",
+    "build": "webpack-cli --config ./webpack.config.js && webpack-cli --config ./auth/webpack.config.js && webpack-cli --config ./contacts/webpack.config.js && webpack-cli --config ./settings/webpack.config.js && webpack-cli --config ./messages/webpack.config.js",
     "build:auth": "webpack-cli --watch --config ./auth/webpack.config.js",
     "build:contacts": "webpack-cli --watch --config ./contacts/webpack.config.js",
     "build:settings": "webpack-cli --watch --config ./settings/webpack.config.js",
     "lint": "eslint ./blocks/**/*.js",
+    "lint:messages": "eslint ./messages/blocks/**/*.js",
     "lint:auth": "eslint --fix --ext .js auth/",
     "lint:settings": "eslint ./settings/**/*.js",
-    "build:contacts": "webpack-cli --watch --config ./contacts/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.9.3",
+    "path": "^0.12.7",
     "pre-commit": "^1.2.2",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
@@ -47,11 +49,12 @@
   },
   "pre-commit": [
     "lint",
+    "lint:messages",
     "lint:auth",
-    "lint:settings"  
+    "lint:settings"
   ],
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "eslint-plugin-import": "^2.17.1"
   }
-
 }
