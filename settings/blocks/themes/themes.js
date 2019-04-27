@@ -15,7 +15,6 @@ export class Themes extends Block {
   }
 
   constructor (options) {
-    const path = require('path');
     super(options);
     this.galarey = new Galarey({
       images: [{
