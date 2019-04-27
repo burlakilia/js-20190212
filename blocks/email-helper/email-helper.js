@@ -23,6 +23,21 @@ export class EmailHelper extends Block {
       required: false
     });
   }
+  // validateEmailCharacter (email) {
+  //   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(email);
+  // }
+  _getChar (event) {
+    if (event.which == null) { // IE
+      if (event.keyCode < 32) return null; // спец. символ
+      return String.fromCharCode(event.keyCode)
+    }
+    if (event.which !== 0 && event.charCode !== 0) { // все кроме IE
+      if (event.which < 32) return null; // спец. символ
+      return String.fromCharCode(event.which); // остальные
+    }
+    return null; // спец. символ
+  }
   render (el) {
     super.render(el);
     this.email.render(this.getElement('email'));
@@ -34,6 +49,15 @@ export class EmailHelper extends Block {
       } else {
         node.classList.remove(`${className}_active`);
       }
+    });
+
+    this.el.querySelector('input').addEventListener('keypress', event => {
+      let chr = this._getChar(event);
+      console.log(chr);
+    });
+
+    this.el.querySelector('input').addEventListener('keyup', event => {
+
     });
   }
 }
