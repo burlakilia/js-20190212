@@ -40,8 +40,8 @@ export class EmailHelper extends Block {
   }
   _localPartSort (arr, str) {
     let newArray = [];
-    for (let key in arr) {
-      if (key.slice(0, str.length) === str) newArray.push(str);
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].slice(0, str.length) === str) newArray.push(arr[i]);
     }
     return newArray;
   }
@@ -60,12 +60,9 @@ export class EmailHelper extends Block {
     let localPart = '';
     this.el.querySelector('input').addEventListener('keypress', event => {
       let chr = this._getChar(event);
-      // console.log(chr);
       localPart += chr;
-      console.log(localPart);
-      // console.log(this.el.querySelectorAll(`.${this.bemName}__list>ul>li`));
       for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
-        console.log(li.textContent);
+        if (li.textContent.slice(0, localPart.length) !== localPart) li.style.display = 'none';
       }
     });
 
