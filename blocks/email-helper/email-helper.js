@@ -38,6 +38,13 @@ export class EmailHelper extends Block {
     }
     return null; // спец. символ
   }
+  _localPartSort (arr, str) {
+    let newArray = [];
+    for (let key in arr) {
+      if (key.slice(0, str.length) === str) newArray.push(str);
+    }
+    return newArray;
+  }
   render (el) {
     super.render(el);
     this.email.render(this.getElement('email'));
@@ -50,10 +57,16 @@ export class EmailHelper extends Block {
         node.classList.remove(`${className}_active`);
       }
     });
-
+    let localPart = '';
     this.el.querySelector('input').addEventListener('keypress', event => {
       let chr = this._getChar(event);
-      console.log(chr);
+      // console.log(chr);
+      localPart += chr;
+      console.log(localPart);
+      // console.log(this.el.querySelectorAll(`.${this.bemName}__list>ul>li`));
+      for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+        console.log(li.textContent);
+      }
     });
 
     this.el.querySelector('input').addEventListener('keyup', event => {
