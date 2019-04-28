@@ -57,17 +57,52 @@ export class EmailHelper extends Block {
         node.classList.remove(`${className}_active`);
       }
     });
-    let localPart = '';
-    this.el.querySelector('input').addEventListener('keypress', event => {
-      let chr = this._getChar(event);
-      localPart += chr;
+    let lineLenght = 0;
+    this.el.querySelector('input').addEventListener('input', event => {
+      let result = event.target.value;
+      console.log(result.length, lineLenght);
+      if (result.length < lineLenght) {
+        console.log('backspace');
+        for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+          if ((li.textContent.slice(0, result.length) === result) && (li.style.display === 'none')) {
+            li.style.display = '';
+          }
+        }
+      }
+      lineLenght = result.lenght;
       for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
-        if (li.textContent.slice(0, localPart.length) !== localPart) li.style.display = 'none';
+        if (li.textContent.slice(0, result.length) !== result) {
+          li.style.display = 'none';
+        }
       }
     });
 
-    this.el.querySelector('input').addEventListener('keyup', event => {
+    for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+      li.addEventListener('mouseover', event => {
+        console.log(event.target);
+        event.target.style.background = 'lightgray';
+      });
+      li.addEventListener('mouseout', event => {
+        console.log(event.target);
+        event.target.style.background = '';
+      });
+      li.addEventListener('click', event => {
+        this.el.querySelector('input').value = event.target.textContent;
+        this.el.querySelector(`.${this.bemName}__list`).classList.remove(`.${this.bemName}__list_active`);
+      });
+    }
 
-    });
+    // this.el.querySelector(`.${this.bemName}__list ul`).addEventListener('mouseover', event => {
+    //   if (event.target && event.target.matches('li')) {
+    //     event.target.style.background = 'lightgray';
+    //     console.log(event.target);
+    //   }
+    // });
+    // this.el.querySelector(`.${this.bemName}__list ul`).addEventListener('mouseout', event => {
+    //   if (event.target && event.target.matches('li')) {
+    //     event.target.style.background = '';
+    //     console.log(event.target);
+    //   }
+    // });
   }
 }
