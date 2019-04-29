@@ -4,6 +4,7 @@ import template from './email-helper.pug';
 
 /* eslint-disable */
 import _ from './email-helper.scss';
+import { conditionalExpression } from 'babel-types';
 /* eslint-enable */
 
 export class EmailHelper extends Block {
@@ -17,76 +18,91 @@ export class EmailHelper extends Block {
     super(options);
     this.email = new Textbox({
       name: 'email',
-      label: 'Введите email',
+      label: 'Email',
       value: '',
-      placeholder: 'alexey.khabarov@mail.ru',
       required: false
     });
-
-    this.helper = document.createElement('div');
-    this.helper.style.position = 'absolute';
-    this.helper.classList.add(`${this.bemName}__list`);
-
-    this.onShowList = this.onShowList.bind(this);
-    this.onHideList = this.onHideList.bind(this);
   }
-
-  delegate (eventName, element, cssSelector, callback) {
-    let fn = event => {
-      if (!event.target.matches(cssSelector)) {
-        return;
-      }
-      callback(event);
-    };
-
-    element.addEventListener(eventName, fn);
-
-    return this;
-  }
-
-  onShowList (event) {
-    this.list = document.createElement('ul');
-    // this.helper.innerHTML = 'Привет';
-    let spanRect = event.target.getBoundingClientRect();
-    let elRect = this.helper.getBoundingClientRect();
-    this.helper.style.left = `${spanRect.left + 10}px`
-    let top = spanRect.bottom;
-    if (top + elRect.height > document.documentElement.clientHeight) {
-      top = spanRect.top - elRect.height;
+  // validateEmailCharacter (email) {
+  //   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(email);
+  // }
+  _getChar (event) {
+    if (event.which == null) { // IE
+      if (event.keyCode < 32) return null; // спец. символ
+      return String.fromCharCode(event.keyCode)
     }
-    console.log('call onShowList');
-    this.helper.style.top = `${top}px`;
-
-    this.email1 = document.createElement('li');
-    this.email1.innerHTML = 'alexey.khabarov';
-    this.email2 = document.createElement('li');
-    this.email2.innerHTML = 'example';
-    this.list.appendChild(this.email1);
-    this.list.appendChild(this.email2);
-    this.helper.appendChild(this.list);
+    if (event.which !== 0 && event.charCode !== 0) { // все кроме IE
+      if (event.which < 32) return null; // спец. символ
+      return String.fromCharCode(event.which); // остальные
+    }
+    return null; // спец. символ
   }
-  onHideList () {
-    this.helper.style.display = 'none';
-    console.log('call onHideList');
+  _localPartSort (arr, str) {
+    let newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].slice(0, str.length) === str) newArray.push(arr[i]);
+    }
+    return newArray;
   }
-
   render (el) {
     super.render(el);
     this.email.render(this.getElement('email'));
-    console.log('render');
-    document.querySelector('.email-helper__email').appendChild(this.helper);
-    // this.el.querySelector('form').addEventListener('click', event => {
-    //   event.preventDefault();
-    //   console.log(this.email);
-    // })
-    // this.delegate('click', this.email, '[data-tooltip]', this.onShowList);
-    // this.delegate('click', document.body, '[data-tooltip]', this.onHideList);
-    console.log(this.email);
-    // this.email.addEventListener('click', this.onShowList);
-    // document.body.addEventListener('click', this.onHideList);
-    document.body.querySelectorAll('.textbox__input').forEach((elem) => {
-      elem.addEventListener('click', this.onShowList);
-      // document.body.addEventListener('click', elem.onHideList);
+    this.el.querySelector('form').addEventListener('click', event => {
+      let className = `${this.bemName}__list`;
+      let node = this.el.querySelector(`.${className}`);
+      if (event.target === this.el.querySelector('input')) {
+        node.classList.toggle(`${className}_active`);
+      } else {
+        node.classList.remove(`${className}_active`);
+      }
     });
+    let lineLenght = 0;
+    this.el.querySelector('input').addEventListener('input', event => {
+      let result = event.target.value;
+      console.log(result.length, lineLenght);
+      if (result.length < lineLenght) {
+        console.log('backspace');
+        for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+          if ((li.textContent.slice(0, result.length) === result) && (li.style.display === 'none')) {
+            li.style.display = '';
+          }
+        }
+      }
+      lineLenght = result.lenght;
+      for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+        if (li.textContent.slice(0, result.length) !== result) {
+          li.style.display = 'none';
+        }
+      }
+    });
+
+    for (const li of this.el.querySelectorAll(`.${this.bemName}__list>ul>li`)) {
+      li.addEventListener('mouseover', event => {
+        console.log(event.target);
+        event.target.style.background = 'lightgray';
+      });
+      li.addEventListener('mouseout', event => {
+        console.log(event.target);
+        event.target.style.background = '';
+      });
+      li.addEventListener('click', event => {
+        this.el.querySelector('input').value = event.target.textContent;
+        this.el.querySelector(`.${this.bemName}__list`).classList.remove(`.${this.bemName}__list_active`);
+      });
+    }
+
+    // this.el.querySelector(`.${this.bemName}__list ul`).addEventListener('mouseover', event => {
+    //   if (event.target && event.target.matches('li')) {
+    //     event.target.style.background = 'lightgray';
+    //     console.log(event.target);
+    //   }
+    // });
+    // this.el.querySelector(`.${this.bemName}__list ul`).addEventListener('mouseout', event => {
+    //   if (event.target && event.target.matches('li')) {
+    //     event.target.style.background = '';
+    //     console.log(event.target);
+    //   }
+    // });
   }
 }

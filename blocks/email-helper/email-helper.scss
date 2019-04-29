@@ -1,10 +1,11 @@
 .email-helper__list {
-    display: block;
-    position: absolute; 
-    left: 10px;
-    top: 10px;   
+    display: none;
+    // position: absolute; 
+    // border: 1px solid blue;   
 }
-// .email-helper__list_active {
-//     background-color: red; 
-//     display: block;
-// }
+.email-helper__list_active {
+    display: block;
+}
+.email-helper__list li {
+    
+}
