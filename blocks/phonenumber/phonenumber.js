@@ -43,9 +43,10 @@ export class Phonenumber extends Block {
       let number = this.phonenumber.value;
 
       this.model.validation(number).then(data => {
+        console.log(data)
         if (data.success === false) {
-          number = number.replace(/[^+0-9]/gim, '')
-          if (number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{5}$') === 0) {
+          number = number.replace(/[^+0-9]/gim, '');
+          if (number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}$') === 0) {
             console.log('number true in reqexp')
             return;
           }
