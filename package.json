@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:messages": "webpack-cli --watch --config ./messages/webpack.config.js",
-    "build": "webpack-cli --config ./webpack.config.js && webpack-cli --config ./auth/webpack.config.js && webpack-cli --config ./contacts/webpack.config.js && webpack-cli --config ./settings/webpack.config.js && webpack-cli --config ./messages/webpack.config.js",
+    "build": "webpack-cli --watch --config ./webpack.config.js && webpack-cli --config ./auth/webpack.config.js && webpack-cli --config ./contacts/webpack.config.js && webpack-cli --config ./settings/webpack.config.js && webpack-cli --config ./messages/webpack.config.js",
     "build:auth": "webpack-cli --watch --config ./auth/webpack.config.js",
     "build:contacts": "webpack-cli --watch --config ./contacts/webpack.config.js",
     "build:settings": "webpack-cli --watch --config ./settings/webpack.config.js",

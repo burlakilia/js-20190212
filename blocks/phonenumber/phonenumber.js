@@ -1,6 +1,7 @@
 import { Block } from '../block';
 import { PhoneField } from './phoneField/phoneField.js';
 import template from './phonenumber.pug';
+import { Model } from './model/model'
 /* eslint-disable */
 import _ from './phonenumber.scss';
 /* eslint-enable */
@@ -16,6 +17,7 @@ export class Phonenumber extends Block {
 
   constructor (options) {
     super(options);
+    this.model = new Model()
     this.isError = true;
     if (options.name === undefined) {
       options.name = 'phonenumber'
@@ -37,23 +39,41 @@ export class Phonenumber extends Block {
       if (this.phonenumber.value === '') {
         return;
       }
-      if (this.phonenumber.value.search('[+]{1}[7]{1} [0-9]{3} [0-9]{3}-[0-9]{2}-[0-9]{2}$') === 0) {
-        return;
-      }
 
-      this.el.querySelector('input').classList.add('errorPhone');
-      let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
-      errorMessage.style.display = 'inline'
+      let number = this.phonenumber.value;
 
-      console.log(self.options);
+      this.model.validation(number).then(data => {
+        console.log(data)
+        if (data.success === false) {
+          number = number.replace(/[^+0-9]/gim, '');
+          console.log('check regexp', number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}$'))
+          if (number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}$') === 0) {
+            console.log('number true in reqexp')
+            return;
+          }
+        }
 
-      if (self.options.required) {
-        let requiredMessage = this.el.querySelector('span.form-message-inline.required');
-        requiredMessage.style.display = 'none'
-      }
-      this.isError = true;
+        if (data.valid) {
+          console.log('number true in API')
+          console.log(data)
+          return;
+        }
 
-      event.preventDefault();
+        console.log('Error number')
+
+        this.el.querySelector('input').classList.add('errorPhone');
+        let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
+        errorMessage.style.display = 'inline'
+
+        if (self.options.required) {
+          let requiredMessage = this.el.querySelector('span.form-message-inline.required');
+          requiredMessage.style.display = 'none'
+        }
+
+        this.isError = true;
+
+        event.preventDefault();
+      })
     })
 
     this.el.querySelector('input').addEventListener('focus', () => {
@@ -79,6 +99,11 @@ export class Phonenumber extends Block {
         return false;
       }
     })
+    this.el.querySelector('.phoneCountrySelect').addEventListener('change', event => {
+      this.phonenumber.value = event.target.value;
+    })
+
+    /*
 
     this.el.querySelector('input').addEventListener('keyup', event => {
       if (event.ctrlKey || event.altKey || event.metaKey) return;
@@ -97,6 +122,7 @@ export class Phonenumber extends Block {
       // if (l >= 11) number.splice(15, number.length - 15);
       this.phonenumber.value = number.join('');
     })
+    */
 
     this.el.querySelector('form').addEventListener('submit', event => {
       event.preventDefault();
@@ -105,3 +131,10 @@ export class Phonenumber extends Block {
     })
   }
 }
+
+/* function request (number) {
+  return fetch(`http://apilayer.net/api/validate?access_key=a6e6ab8e6f404fe484554f900c232b72d&number=${number}&country_code=&format=1`).then(response => {
+    return response.json()
+  });
+}
+*/

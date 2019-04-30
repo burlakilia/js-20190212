@@ -1,7 +1,14 @@
 div.phoneField
 
     label(for=name) #{label}
-    input.phoneField__input(id=name, type="text", name=name, value=value, placeholder=placeholder)
+    select.phoneCountrySelect
+      each data, code in countryCodes
+        if code=='RU'
+          option(value=data.dialling_code selected) #{code} 
+        else 
+          option(value=data.dialling_code) #{code}
+
+    input.phoneField__input(id=name, type="text", name=name, value="+7", placeholder=placeholder)
     span.form-message-inline.errorPhone invalid phone number
     if required
         span.form-message-inline.required Обязательное поле
