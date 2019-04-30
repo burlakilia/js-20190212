@@ -15,10 +15,11 @@
         'use strict';
 
         const phone = new Phonenumber({
-            name: 'phonenumber',
+            name: 'phone',
             label: 'Телефонный номер',
-            placeholder: '8-999-9999999',
-            required: true
+            placeholder: '+79211234567',
+            required: true,
+          submit: true
         });
         console.log(phone)
 

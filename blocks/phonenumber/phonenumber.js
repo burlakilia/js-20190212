@@ -36,40 +36,42 @@ export class Phonenumber extends Block {
     })
 
     this.el.querySelector('input').addEventListener('blur', event => {
-      let valid = val(this.phonenumber.value)
-      if (valid === true) { return; }
-
-      // if (this.phonenumber.value === '') {
-      //   return;
-      // }
-      //
-      // let number = this.phonenumber.value;
-
-      // this.model.request(number).then(data => {
-      //   console.log(data)
-      //   if (data.valid === true) {
-      //     this.phonenumber.value = '+79871231212';
-      //     console.log('ddddd', this.phonenumber.value);
-      //     return;
-      //   }
-      //
-      //   if (number.search('[+]{1}[7]{1} [0-9]{3} [0-9]{3}-[0-9]{2}-[0-9]{2}$') === 0) {
-      //     return;
-      //   }
-      console.log('emmmemem')
-      this.el.querySelector('input').classList.add('errorPhone');
-      let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
-      errorMessage.style.display = 'inline'
-
-      if (self.options.required) {
-        let requiredMessage = this.el.querySelector('span.form-message-inline.required');
-        requiredMessage.style.display = 'none'
+      if (this.phonenumber.value === '') {
+        return;
       }
 
-      this.isError = true;
+      let number = this.phonenumber.value;
 
-      event.preventDefault();
-      // })
+      this.model.validation(number).then(data => {
+        if (data.success === false) {
+          number = number.replace(/[^+0-9]/gim, '')
+          if (number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{5}$') === 0) {
+            console.log('number true in reqexp')
+            return;
+          }
+        }
+
+        if (data.valid) {
+          console.log('number true in API')
+          console.log(data)
+          return;
+        }
+
+        console.log('Error number')
+
+        this.el.querySelector('input').classList.add('errorPhone');
+        let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
+        errorMessage.style.display = 'inline'
+
+        if (self.options.required) {
+          let requiredMessage = this.el.querySelector('span.form-message-inline.required');
+          requiredMessage.style.display = 'none'
+        }
+
+        this.isError = true;
+
+        event.preventDefault();
+      })
     })
 
     this.el.querySelector('input').addEventListener('focus', () => {
@@ -83,7 +85,7 @@ export class Phonenumber extends Block {
       this.isError = false;
     })
 
-    /*  this.el.querySelector('input').addEventListener('keydown', event => {
+    this.el.querySelector('input').addEventListener('keydown', event => {
       if (event.ctrlKey || event.altKey || event.metaKey) return;
 
       let chr = event.key;
@@ -95,7 +97,10 @@ export class Phonenumber extends Block {
         return false;
       }
     })
-*/
+    this.el.querySelector('.phoneCountrySelect').addEventListener('change', event => {
+      this.phonenumber.value = event.target.value;
+    })
+
     /*
 
     this.el.querySelector('input').addEventListener('keyup', event => {
@@ -131,19 +136,3 @@ export class Phonenumber extends Block {
   });
 }
 */
-
-function val (number) {
-  let model = new Model()
-  model.request(number).then(data => {
-    console.log(data)
-    if (data.valid === true) {
-      return true;
-    }
-  }, reject => {
-    console.log(reject)
-    if (number.search('[+]{1}[7]{1} [0-9]{3} [0-9]{5}$') === 0) {
-      console.log('req-true')
-      return true;
-    }
-  })
-}
