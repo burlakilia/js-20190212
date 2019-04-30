@@ -1,6 +1,7 @@
 import { Block } from '../block';
 import { PhoneField } from './phoneField/phoneField.js';
 import template from './phonenumber.pug';
+import { Model } from './model/model'
 /* eslint-disable */
 import _ from './phonenumber.scss';
 /* eslint-enable */
@@ -16,6 +17,7 @@ export class Phonenumber extends Block {
 
   constructor (options) {
     super(options);
+    this.model = new Model()
     this.isError = true;
     if (options.name === undefined) {
       options.name = 'phonenumber'
@@ -34,26 +36,40 @@ export class Phonenumber extends Block {
     })
 
     this.el.querySelector('input').addEventListener('blur', event => {
-      if (this.phonenumber.value === '') {
-        return;
-      }
-      if (this.phonenumber.value.search('[+]{1}[7]{1} [0-9]{3} [0-9]{3}-[0-9]{2}-[0-9]{2}$') === 0) {
-        return;
-      }
+      let valid = val(this.phonenumber.value)
+      if (valid === true) { return; }
 
+      // if (this.phonenumber.value === '') {
+      //   return;
+      // }
+      //
+      // let number = this.phonenumber.value;
+
+      // this.model.request(number).then(data => {
+      //   console.log(data)
+      //   if (data.valid === true) {
+      //     this.phonenumber.value = '+79871231212';
+      //     console.log('ddddd', this.phonenumber.value);
+      //     return;
+      //   }
+      //
+      //   if (number.search('[+]{1}[7]{1} [0-9]{3} [0-9]{3}-[0-9]{2}-[0-9]{2}$') === 0) {
+      //     return;
+      //   }
+      console.log('emmmemem')
       this.el.querySelector('input').classList.add('errorPhone');
       let errorMessage = this.el.querySelector('span.form-message-inline.errorPhone');
       errorMessage.style.display = 'inline'
-
-      console.log(self.options);
 
       if (self.options.required) {
         let requiredMessage = this.el.querySelector('span.form-message-inline.required');
         requiredMessage.style.display = 'none'
       }
+
       this.isError = true;
 
       event.preventDefault();
+      // })
     })
 
     this.el.querySelector('input').addEventListener('focus', () => {
@@ -67,7 +83,7 @@ export class Phonenumber extends Block {
       this.isError = false;
     })
 
-    this.el.querySelector('input').addEventListener('keydown', event => {
+    /*  this.el.querySelector('input').addEventListener('keydown', event => {
       if (event.ctrlKey || event.altKey || event.metaKey) return;
 
       let chr = event.key;
@@ -79,6 +95,8 @@ export class Phonenumber extends Block {
         return false;
       }
     })
+*/
+    /*
 
     this.el.querySelector('input').addEventListener('keyup', event => {
       if (event.ctrlKey || event.altKey || event.metaKey) return;
@@ -97,6 +115,7 @@ export class Phonenumber extends Block {
       // if (l >= 11) number.splice(15, number.length - 15);
       this.phonenumber.value = number.join('');
     })
+    */
 
     this.el.querySelector('form').addEventListener('submit', event => {
       event.preventDefault();
@@ -104,4 +123,27 @@ export class Phonenumber extends Block {
       console.log(this.isError)
     })
   }
+}
+
+/* function request (number) {
+  return fetch(`http://apilayer.net/api/validate?access_key=a6e6ab8e6f404fe484554f900c232b72d&number=${number}&country_code=&format=1`).then(response => {
+    return response.json()
+  });
+}
+*/
+
+function val (number) {
+  let model = new Model()
+  model.request(number).then(data => {
+    console.log(data)
+    if (data.valid === true) {
+      return true;
+    }
+  }, reject => {
+    console.log(reject)
+    if (number.search('[+]{1}[7]{1} [0-9]{3} [0-9]{5}$') === 0) {
+      console.log('req-true')
+      return true;
+    }
+  })
 }
