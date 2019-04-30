@@ -46,6 +46,7 @@ export class Phonenumber extends Block {
         console.log(data)
         if (data.success === false) {
           number = number.replace(/[^+0-9]/gim, '');
+          console.log('check regexp', number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}$'))
           if (number.search('[+]{1}[7]{1}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}$') === 0) {
             console.log('number true in reqexp')
             return;
