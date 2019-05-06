@@ -9,7 +9,7 @@ export class Model {
     return fetch(`${BASE_URL}/${path}`, {
       method: verb, // GET, PUT, POST
       headers,
-      body
+      body: JSON.stringify(body)
     }).then(data => {
       console.log(`get response ${path} ${data.status}`);
       return data.json();

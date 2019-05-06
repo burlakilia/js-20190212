@@ -9,6 +9,9 @@ export class User extends Model {
     if (form.password !== form.password_repeat) {
       return Promise.reject(new Error('не совпадают пароль'));
     }
-    return this.request('/auth/signup', 'POST', form);
+    return this.request('POST', 'auth/signup', form);
+  }
+  signin (form) {
+    return this.request('POST', 'auth/signin', form);
   }
 }

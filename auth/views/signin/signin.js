@@ -1,4 +1,5 @@
 import { View } from '../view';
+import { User } from '../../model/user';
 import template from './signin.pug';
 
 import { SigninForm } from '../../blocks/signin/signin'
@@ -16,10 +17,17 @@ export class Signin extends View {
   }
   constructor () {
     super();
+    this.model = new User();
     this.signinForm = new SigninForm();
+  }
+  signin (form) {
+    this.model
+      .signin(form)
+      .then(result => console.log(result));
   }
   render (el) {
     super.render(el);
-    this.signinForm.render(this.getElement('form'))
+    this.signinForm.render(this.getElement('form'));
+    this.signinForm.onSubmit = form => this.signin(form);
   }
 }

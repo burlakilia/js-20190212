@@ -34,13 +34,17 @@ export class SigninForm extends Block {
       required: true
     });
   }
+  onSubmit (form) {}
   render (el) {
     super.render(el);
     this.userMail.render(this.getElement('user-mail'));
     this.userPassword.render(this.getElement('user-password'));
     this.el.querySelector('form').addEventListener('submit', event => {
       event.preventDefault();
-      console.log(this.userMail.value, this.userPassword.value);
+      this.onSubmit({
+        email: this.userMail.el.querySelector('input').value,
+        pwd: this.userPassword.el.querySelector('input').value
+      });
     })
   }
 }
